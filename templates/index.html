@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF Studio — Manipulasi &amp; Gabung PDF</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=5">
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <span class="logo">🗎</span>
+    <div>
+      <h1>PDF Studio</h1>
+      <p>rotate · extract · compress · merge · convert (JPG/PNG ↔ PDF)</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="upload-zone" class="card dropzone" tabindex="0">
+    <div class="dz-inner">
+      <div class="dz-icon">⬆</div>
+      <h2>Seret &amp; taruh file di sini</h2>
+      <p>atau</p>
+      <label class="btn primary" for="file-input">Pilih File (PDF / JPG / PNG / BMP / TIFF / WEBP)</label>
+      <input type="file" id="file-input" multiple accept=".pdf,.jpg,.jpeg,.png,.bmp,.tif,.tiff,.webp" hidden>
+    </div>
+  </section>
+
+  <section id="toolbar" class="card toolbar hidden">
+    <div class="tb-group">
+      <button class="btn primary" id="btn-process">⚙️ Proses File</button>
+      <button class="btn accent" id="btn-merge">🔀 Merge Hasil PDF</button>
+    </div>
+    <div class="tb-group">
+      <span class="tb-label">Susun:</span>
+      <button class="btn" id="btn-arrange-az" title="Urutkan nama file A→Z">🔤 Nama A→Z</button>
+      <button class="btn" id="btn-arrange-za" title="Urutkan nama file Z→A">🔤 Nama Z→A</button>
+    </div>
+    <div class="tb-group">
+      <button class="btn" id="btn-zip">📦 Download Semua (ZIP)</button>
+      <button class="btn danger" id="btn-clear">🗑 Hapus Semua</button>
+    </div>
+  </section>
+
+  <div id="rows"></div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <div id="review-modal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>📋 Review Hasil Proses</h3>
+        <button class="btn small" id="review-close" type="button">✕</button>
+      </div>
+      <div class="modal-body" id="review-body"></div>
+      <div class="modal-foot">
+        <button class="btn accent" id="review-download" type="button">⬇ Download Semua (ZIP)</button>
+        <button class="btn primary" id="review-ok" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>Local tool · semua proses berjalan di komputer kamu</footer>
+
+<script src="{{ url_for('static', filename='app.js') }}?v=5"></script>
+</body>
+</html>
