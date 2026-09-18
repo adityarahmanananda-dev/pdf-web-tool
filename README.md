@@ -1,5 +1,7 @@
 # PDF Studio
 
+[![CI](https://github.com/adityarahmanananda-dev/pdf-web-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/adityarahmanananda-dev/pdf-web-tool/actions/workflows/ci.yml)
+
 Web app lokal untuk manipulasi & menggabungkan file PDF, plus konversi gambar. Semua proses berjalan di komputer kamu sendiri — file tidak dikirim ke server manapun.
 
 Fitur yang digabung dari beberapa script Python sebelumnya: `jpg_to_pdf`, `pdf_to_jpg`, `png_to_jpg`, `pdf_tool_gui`, `pdf_tools`, `pdf_compressor`.
