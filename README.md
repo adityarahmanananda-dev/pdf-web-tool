@@ -2,97 +2,97 @@
 
 [![CI](https://github.com/adityarahmanananda-dev/pdf-web-tool/actions/workflows/ci.yml/badge.svg)](https://github.com/adityarahmanananda-dev/pdf-web-tool/actions/workflows/ci.yml)
 
-Web app lokal untuk manipulasi & menggabungkan file PDF, plus konversi gambar. Semua proses berjalan di komputer kamu sendiri — file tidak dikirim ke server manapun.
+A local web app for manipulating and merging PDF files, plus image conversion. Everything runs on your own computer — files are never sent to any server.
 
-Fitur yang digabung dari beberapa script Python sebelumnya: `jpg_to_pdf`, `pdf_to_jpg`, `png_to_jpg`, `pdf_tool_gui`, `pdf_tools`, `pdf_compressor`.
+Features consolidated from several earlier Python scripts: `jpg_to_pdf`, `pdf_to_jpg`, `png_to_jpg`, `pdf_tool_gui`, `pdf_tools`, `pdf_compressor`.
 
 ## Screenshot
 
-![UI demo (data dummy)](docs/screenshot.png)
+![UI demo (dummy data)](docs/screenshot.png)
 
-> Screenshot mockup UI dengan data dummy — bukan data riil.
+> Screenshot is a UI mockup with dummy data — not real data.
 
-## Fitur
+## Features
 
-- **Upload banyak file sekaligus** — PDF dan gambar (JPG/PNG/BMP/TIFF/WEBP), drag & drop atau pilih file.
-- **Action per baris file**, bisa beberapa sekaligus:
-  - 🔃 **Rotate** — putar halaman tertentu (sudut 90/180/270°, arah CW/CCW)
-  - ✂ **Extract** — ambil halaman tertentu, urutan bebas (misal `5,1,3-6`)
-  - 🗜 **Compress** — kecilkan ukuran PDF (kualitas screen/ebook/printer/prepress, pakai Ghostscript)
-  - 🖼 **PDF → JPG** — tiap halaman jadi JPG, hasil di-zip
-  - 📄 **Gambar → PDF** — gambar jadi PDF (bisa ikut di-merge)
-  - 🖼 **PNG → JPG** — konversi PNG (transparan jadi putih)
-- **Arrange** — urutkan ulang file dengan drag-and-drop, atau tombol urut nama A→Z / Z→A.
-- **Merge** — gabungkan PDF terproses maupun file asli, sesuai urutan baris (gambar otomatis dikonversi dulu).
-- **Review hasil** — setelah proses, muncul ringkasan hasil dulu; baru boleh download tiap file atau semuanya (ZIP).
-- **Session persist** — file upload tersimpan di server lokal, list tidak hilang saat halaman di-refresh.
+- **Upload multiple files at once** — PDF and images (JPG/PNG/BMP/TIFF/WEBP), drag & drop or file picker.
+- **Per-file actions**, multiple at the same time:
+  - 🔃 **Rotate** — rotate specific pages (90/180/270°, CW/CCW)
+  - ✂ **Extract** — take specific pages in any order (e.g. `5,1,3-6`)
+  - 🗜 **Compress** — reduce PDF size (screen/ebook/printer/prepress quality via Ghostscript)
+  - 🖼 **PDF → JPG** — each page becomes a JPG, output zipped
+  - 📄 **Image → PDF** — images become PDF (can be included in a merge)
+  - 🖼 **PNG → JPG** — convert PNG (transparency becomes white)
+- **Arrange** — reorder files with drag-and-drop, or sort by name A→Z / Z→A.
+- **Merge** — combine processed PDFs and/or originals in row order (images are converted first).
+- **Review results** — after processing, a result summary appears first; then you can download files individually or all at once (ZIP).
+- **Session persist** — uploaded files are kept by the local server; the list survives a page refresh.
 
-## Persyaratan
+## Requirements
 
 - Python 3.9+
 - pip packages: `flask`, `pikepdf`, `pillow`, `img2pdf`
 - System tools:
-  - `poppler-utils` (untuk PDF → JPG, menyediakan `pdftoppm`)
-  - `ghostscript` (untuk compress, menyediakan `gs`)
+  - `poppler-utils` (for PDF → JPG, provides `pdftoppm`)
+  - `ghostscript` (for compression, provides `gs`)
 
-## Instalasi & menjalankan
+## Installation & running
 
 ```bash
-# 1. install dependencies Python
+# 1. install Python dependencies
 pip install flask pikepdf pillow img2pdf
 
-# 2. install tools sistem
+# 2. install system tools
 #   Debian/Ubuntu:
 sudo apt install poppler-utils ghostscript
 #   macOS:
 brew install poppler ghostscript
-#   Windows: install dari https://www.ghostscript.com/download.html
-#   dan https://github.com/oschwartz10612/poppler-windows
+#   Windows: install from https://www.ghostscript.com/download.html
+#   and https://github.com/oschwartz10612/poppler-windows
 
-# 3. jalankan
+# 3. run
 cd pdf-web-tool
 python3 app.py
 ```
 
-Lalu buka **http://127.0.0.1:5001** di browser.
+Then open **http://127.0.0.1:5001** in your browser.
 
-Opsional: untuk development dengan auto-reload, jalankan `python3 app.py --debug`.
+Optional: for development with auto-reload, run `python3 app.py --debug`.
 
-## Ghostscript project-local (tanpa install sistem)
+## Project-local Ghostscript (no system install)
 
-Kalau tidak mau install ghostscript ke sistem, bisa taruh binary `gs` di folder project:
+If you don't want to install Ghostscript system-wide, you can put the `gs` binary inside the project:
 
-1. Unduh build ghostscript untuk Linux, misalnya paket conda-forge `ghostscript`.
-2. Ekstrak, lalu letakkan binary di `vendor/ghostscript/bin/gs`.
-3. Aplikasi otomatis memakai binary lokal itu; kalau tidak ada, fallback ke `gs` di PATH sistem.
+1. Download a Ghostscript build for Linux, e.g. the conda-forge `ghostscript` package.
+2. Extract it and place the binary at `vendor/ghostscript/bin/gs`.
+3. The app automatically uses the local binary; if absent, it falls back to `gs` on the system PATH.
 
-Folder `vendor/` di-ignore dari git (binary-nya besar), jadi tinggal isi manual di tiap mesin.
+The `vendor/` folder is git-ignored (the binaries are large), so fill it in manually per machine.
 
-## Cara pakai
+## Usage
 
-1. Upload file (PDF/gambar) — beberapa sekaligus.
-2. Di baris tiap file, centang action yang diinginkan lalu isi parameternya.
-3. Klik **⚙️ Proses File**.
-4. Tinjau hasil di modal **Review Hasil Proses**, lalu download per-item atau **⬇ Download Semua (ZIP)**.
-5. Untuk menggabungkan, susun urutan file (drag) lalu klik **🔀 Merge Hasil PDF**.
+1. Upload files (PDF/images) — several at once.
+2. On each file row, tick the actions you want and set their parameters.
+3. Click **⚙️ Process Files**.
+4. Review the results in the **Process Result** modal, then download per item or **⬇ Download All (ZIP)**.
+5. To merge, arrange the file order (drag) then click **🔀 Merge Result PDF**.
 
-### Format input halaman
+### Input page formats
 
-- `1-3,5,7-9` → halaman 1 sampai 3, 5, 7 sampai 9
-- `5,1,3` → urutan hasil mengikuti urutan yang ditulis
-- `5-1` → mundur (5,4,3,2,1)
-- Kosong pada Rotate = semua halaman
+- `1-3,5,7-9` → pages 1 to 3, 5, 7 to 9
+- `5,1,3` → output follows the written order
+- `5-1` → reverse (5,4,3,2,1)
+- Empty on Rotate = all pages
 
-## Struktur project
+## Project structure
 
 ```
 pdf-web-tool/
-├── app.py              # backend Flask + logika PDF
+├── app.py              # Flask backend + PDF logic
 ├── templates/
-│   └── index.html      # halaman utama
+│   └── index.html      # main page
 ├── static/
-│   ├── app.js          # logika frontend
+│   ├── app.js          # frontend logic
 │   └── style.css
-├── storage/            # file upload & hasil (di-ignore git)
-└── vendor/             # ghostscript lokal opsional (di-ignore git)
+├── storage/            # uploads & results (git-ignored)
+└── vendor/             # optional local ghostscript (git-ignored)
 ```
