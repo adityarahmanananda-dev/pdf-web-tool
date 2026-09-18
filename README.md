@@ -6,6 +6,12 @@ Web app lokal untuk manipulasi & menggabungkan file PDF, plus konversi gambar. S
 
 Fitur yang digabung dari beberapa script Python sebelumnya: `jpg_to_pdf`, `pdf_to_jpg`, `png_to_jpg`, `pdf_tool_gui`, `pdf_tools`, `pdf_compressor`.
 
+## Screenshot
+
+![UI demo (data dummy)](docs/screenshot.png)
+
+> Screenshot mockup UI dengan data dummy — bukan data riil.
+
 ## Fitur
 
 - **Upload banyak file sekaligus** — PDF dan gambar (JPG/PNG/BMP/TIFF/WEBP), drag & drop atau pilih file.
