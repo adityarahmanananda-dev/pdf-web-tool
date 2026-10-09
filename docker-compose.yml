@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    environment:
+      PORT: "5001"
+    ports:
+      - "127.0.0.1:8055:5001"
+    volumes:
+      - .:/app
